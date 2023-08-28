@@ -1,0 +1,11 @@
+@app.route('/download/<filename>', methods=['GET'])
+def download_ppt(filename):
+    ppt_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    
+    if os.path.exists(ppt_path):
+        return send_file(ppt_path, as_attachment=True)
+    else:
+        return jsonify({'error': 'File not found'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
