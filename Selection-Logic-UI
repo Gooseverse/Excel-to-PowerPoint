@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Excel to PowerPoint Converter</title>
+</head>
+<body>
+  <h1>Excel to PowerPoint Converter</h1>
+  <table id="excelTable">
+    <thead>
+      <tr>
+        <th></th> <!-- Empty cell for checkboxes column -->
+        <th>Column 1</th>
+        <th>Column 2</th>
+        <!-- ... -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="rowCheckbox" value="0"></td>
+        <td>Row 1, Column 1</td>
+        <td>Row 1, Column 2</td>
+        <!-- ... -->
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="rowCheckbox" value="1"></td>
+        <td>Row 2, Column 1</td>
+        <td>Row 2, Column 2</td>
+        <!-- ... -->
+      </tr>
+      <!-- ... -->
+    </tbody>
+  </table>
+  <button id="convertButton">Convert</button>
+
+  <script>
+    const convertButton = document.getElementById('convertButton');
+    const rowCheckboxes = document.querySelectorAll('.rowCheckbox');
+
+    convertButton.addEventListener('click', () => {
+      const selectedRows = [];
+
+      rowCheckboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+          selectedRows.push(index);
+        }
+      });
+
+      // Send selectedRows to the backend along with the uploaded file
+      // using fetch or other appropriate methods
+      // Example:
+      /*
+      fetch('/convert', {
+        method: 'POST',
+        body: JSON.stringify({ selectedRows, excelFile }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle response from the server
+      })
+      .catch(error => {
+        // Handle error
+      });
+      */
+    });
+  </script>
+</body>
+</html>
