@@ -1,0 +1,21 @@
+@app.route('/convert', methods=['POST'])
+def convert_to_powerpoint():
+    if 'excelFile' not in request.files:
+        return jsonify({'error': 'No file part'})
+
+    file = request.files['excelFile']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
+
+    if file:
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(filename)
+
+        data = read_excel_data(filename)
+        ppt = create_powerpoint(data)
+
+        ppt_filename = os.path.splitext(file.filename)[0] + '.pptx'
+        ppt_path = os.path.join(app.config['UPLOAD_FOLDER'], ppt_filename)
+        ppt.save(ppt_path)
+
+        return jsonify({'message': 'Conversion complete', 'ppt_filename': ppt_filename})
