@@ -1,0 +1,12 @@
+from pptx import Presentation
+
+def create_powerpoint(data):
+    prs = Presentation()
+    for row in data:
+        slide = prs.slides.add_slide(prs.slide_layouts[5])
+        text = slide.shapes.add_textbox(left=100, top=100, width=600, height=300).text_frame
+        for item in row:
+            p = text.add_paragraph()
+            p.text = str(item)
+
+    return prs
